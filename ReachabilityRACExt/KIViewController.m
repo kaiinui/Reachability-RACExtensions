@@ -7,6 +7,8 @@
 //
 
 #import "KIViewController.h"
+#import <ReactiveCocoa.h>
+#import "Classes/Reachability+ReactiveCocoa.h"
 
 @interface KIViewController ()
 
@@ -17,6 +19,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[Reachability rac_reachabilitySignal] subscribeNext:^(Reachability *x) {
+        NSLog(@"%hhd", x.isReachable);
+        NSLog(@"%hhd", x.isReachableViaWiFi);
+        NSLog(@"%hhd", x.isReachableViaWWAN);
+    }];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
